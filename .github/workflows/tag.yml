@@ -1,0 +1,43 @@
+on:
+  push:
+    branches:
+     - main
+name: 🚀 Deploy website on push
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v2.3.2
+      with:
+        fetch-depth: '0'
+      
+    - name: Bump version and push tag
+      uses: anothrNick/github-tag-action@1.26.0
+      id: bump_version
+      env:
+        GITHUB_TOKEN: ${{ secrets.TAG_TOKEN }}
+        RELEASE_BRANCHES: main
+        INITIAL_VERSION: 1.0.0
+    
+    - run: |
+        git config --global user.email "${{ github.actor }}@noreply.github.com"
+        git config --global user.name "${{ github.actor }}"
+
+    - name: Use Node.js 16
+      uses: actions/setup-node@v2-beta
+      with:
+        node-version: '16'
+      
+    - name: 🔨 Tagging Project
+      run: |
+        npm version ${{ steps.bump_version.outputs.new_tag }} --no-git-tag-version
+        
+    - name: Commit changes
+      run: |
+        git config --global user.email "${{ github.actor }}@noreply.github.com"
+        git config --global user.name "${{ github.actor }}"
+        git remote set-url origin https://x-access-token:${{ secrets.TAG_TOKEN }}@github.com/${{ github.repository }}
+        git commit -am "✔️tag ${{ steps.bump_version.outputs.new_tag }}"
+        git push
