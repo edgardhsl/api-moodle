@@ -27,6 +27,15 @@ export class Moodle {
         }
     }
 
+    public static async createCourse(courseId: string) {
+        try {
+            return this.moodle.call({ wsfunction: 'core_course_create_courses', args: { options: { ids: [courseId] } } });
+        } catch (ex) {
+            console.log(ex);
+            return { code: -1, message: 'Não foi possível' };
+        }
+    }
+
     public static async getCourseStudents(courseId: string) {
         try {
             return this.moodle.call({ wsfunction: 'core_enrol_get_enrolled_users', args: { courseid: courseId } });
