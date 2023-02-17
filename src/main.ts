@@ -3,5 +3,5 @@ import { MoodleAPIServer } from "./server";
 
 const server = new MoodleAPIServer();
 Moodle.init(new Authorize(__dirname + '/app/config/credentials.json')).then(_ => {
-    server.start(3000);
+    server.start(4000);
 });

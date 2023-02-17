@@ -1,11 +1,11 @@
-export class Course {
-    
-    id?: string;
-    name?: string;
-    section?: string;
-    title?: string;
-    description?: string;
-    status?: number;
-    teacherId?: number;
+export interface Course {
+    fullname: string,
+    shortname: string,
+    categoryid: number | null,
+    idnumber: string
+}
 
+export interface CourseResponse {
+    id: number,
+    shortname: string
 }
