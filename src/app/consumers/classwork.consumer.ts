@@ -8,4 +8,7 @@ export class ClassworkConsumer {
         return response;
     }
 
+    private static async _getCourses(params: any[]): Promise<any[]> {
+        return await Moodle.getCourseList();
+    }
 }

@@ -42,10 +42,10 @@ export class MoodleAPIServer extends Server {
             if (!payload.message.value) return;
 
             switch (payload.topic) {
-                case 'moodle-category': console.log(await CategoryConsumer.sync(KafkaMessage.toJSON(payload.message.value))); break;
-                case 'moodle-course': console.log(await CourseConsumer.sync(KafkaMessage.toJSON(payload.message.value))); break;
-                /* case 'moodle-student': StudentConsumer.sync(KafkaMessage.toJSON(payload.message.value)); break;
-                case 'moodle-classwork': ClassworkConsumer.sync(KafkaMessage.toJSON(payload.message.value)); break; */
+                case  'moodle-category': await CategoryConsumer.sync(KafkaMessage.toJSON(payload.message.value)); break;
+                case    'moodle-course': await CourseConsumer.sync(KafkaMessage.toJSON(payload.message.value)); break;
+                case   'moodle-student': await StudentConsumer.sync(KafkaMessage.toJSON(payload.message.value)); break;
+                case 'moodle-classwork': await ClassworkConsumer.sync(KafkaMessage.toJSON(payload.message.value)); break;
             }
         } catch (error) {
             console.error(error);
