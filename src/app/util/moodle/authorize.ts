@@ -1,5 +1,6 @@
 import fs from 'fs';
-import * as MoodleClient from 'moodle-client';
+import * as Moodle from 'moodle-client';
+import { MoodleClient } from './moodle';
 
 export class Authorize {
     
@@ -19,7 +20,7 @@ export class Authorize {
             const credentials = fs.readFileSync(this._credentialsPath, { encoding: 'utf8', flag: 'r' }) as any;
             const { endpoint_url, token } = JSON.parse(credentials);
 
-            return await MoodleClient.init({ wwwroot: endpoint_url, token: token });
+            return await Moodle.init({ wwwroot: endpoint_url, token: token }) as MoodleClient;
         } catch (err) {
             console.error(`Unable to initialize the client:`, err);
         }

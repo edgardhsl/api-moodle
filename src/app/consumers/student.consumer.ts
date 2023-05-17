@@ -1,20 +1,28 @@
-import { Student } from 'app/models/student';
 import { Moodle } from '../util/moodle';
 
 export class StudentConsumer {
 
-    static async sync(user: Student) {
-        console.log(user);
-        const response = await Moodle.createUser(user);
-        console.trace(response)
-        user.student.userid = response.id;
-        this._enroll(user);
+    private static _moodle: Moodle = new Moodle();
+
+    static async sync(data: Array<any>) {
+        const response = await this._moodle.user.create(this._castToMoodle(data));
 
     }
 
-    private static async _enroll(user: Student) {
-        const response = await Moodle.enrolUser(user);
-        console.trace(response)
+    private static _castToMoodle(data: any[]): Array<IUser> {
+        return data.map((user) => ({
+            idnumber: user.id,
+            username: user.login,
+            firstname: user.nome,
+            lastname: user.sobrenome,
+            email: user.email,
+            preferences: [
+                {
+                    type: 'auth_forcepasswordchange',
+                    value: true
+                }
+            ]
+        }));
     }
 
 }

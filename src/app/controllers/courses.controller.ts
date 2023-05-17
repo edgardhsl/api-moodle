@@ -4,12 +4,14 @@ import { NextFunction, Request, Response } from 'express';
 
 @Controller('api/courses')
 export class CourseController {
+    
+    private _moodle: Moodle = new Moodle();
 
-    @Get('')
+  /*   @Get('')
     @Middleware([])
     async get(req: Request, res: Response, next: NextFunction) {
         try {
-            const response: any = await Moodle.getCourseList();
+            const response: any = this._moodle.user.create(req.body);
             res.status(200).json(response);
         } catch (ex) {
             return res.status(500).json(ex);
@@ -46,7 +48,7 @@ export class CourseController {
             res.status(200).json(response);
         } catch (ex) {
             return res.status(500).json(ex);
-        }
-    }
+        } 
+    } */
 
 }

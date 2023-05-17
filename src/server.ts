@@ -6,6 +6,7 @@ import { ClassworkConsumer } from "./app/consumers/classwork.consumer";
 import { CourseConsumer } from "./app/consumers/course.consumer";
 import { StudentConsumer } from "./app/consumers/student.consumer";
 import { CourseController } from "./app/controllers/courses.controller";
+import { StudentsController } from "./app/controllers/students.controller";
 import { KafkaConsumer } from "./app/util/kafka/kafka.consumer";
 import { KafkaMessage } from "./app/util/kafka/kafka.message";
 
@@ -21,6 +22,7 @@ export class MoodleAPIServer extends Server {
 
         this.controllers = {
             CourseController,
+            StudentsController,
         }
 
         this.initializeKafka();

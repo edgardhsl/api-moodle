@@ -16,7 +16,7 @@ export class KafkaConsumer {
         this.kafka = new Kafka({
             clientId: 'api-moodle-consumer',
             brokers: [
-                '192.168.1.64:9092'
+                '127.0.0.1:9092'
             ],
         });
     }
