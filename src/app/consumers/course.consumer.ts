@@ -1,6 +1,7 @@
 import { Course, CourseResponse } from 'app/models/course';
 import { Category } from 'app/models/category';
 import { Moodle } from '../util/moodle';
+import { TextNormalizer } from 'app/util/text/text-normalizer';
 
 export class CourseConsumer {
 
@@ -30,14 +31,10 @@ export class CourseConsumer {
                 idnumber: item.id,
                 fullname: `${category?.name} - ${item.nome}`,
                 categoryid: category?.id ?? null,
-                shortname: `${this._normalize(category?.name).slice(0, 3)}${this._normalize(item.nome).slice(0, 3).toUpperCase()}`
+                shortname: `${TextNormalizer.shortName(category?.name).slice(0, 3)}${TextNormalizer.shortName(item.nome).slice(0, 3).toUpperCase()}`
             }
 
             return course;
         });
-    }
-
-    private static _normalize(str: string | undefined) {
-        return str?.normalize('NFC').replace(/ /g,'').replace(/[^a-zA-Z0-9 ]/g, '') || '';
     }
 }
