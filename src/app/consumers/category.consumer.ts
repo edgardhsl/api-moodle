@@ -3,9 +3,9 @@ import { Moodle } from "app/util/moodle";
 
 export class CategoryConsumer {
 
-    private static _moodle: Moodle = new Moodle();
+    private _moodle: Moodle = new Moodle();
 
-    static async sync(params: any) {
+    async sync(params: any) {
         const responses: CategoryResponse[] = [];
 
         for(const category of this._castToMoodle(params)) {
@@ -15,7 +15,7 @@ export class CategoryConsumer {
         return responses;
     }
 
-    private static _castToMoodle(params: any[]): Category[] {
+    private _castToMoodle(params: any[]): Category[] {
         return params.map((item: any) => {
             const category: Category = {
                 idnumber: item.id,

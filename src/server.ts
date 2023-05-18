@@ -9,6 +9,7 @@ import { CourseController } from "./app/controllers/courses.controller";
 import { StudentsController } from "./app/controllers/students.controller";
 import { KafkaConsumer } from "./app/util/kafka/kafka.consumer";
 import { KafkaMessage } from "./app/util/kafka/kafka.message";
+import { Moodle } from "app/util/moodle";
 
 export class MoodleAPIServer extends Server {
 
@@ -44,10 +45,10 @@ export class MoodleAPIServer extends Server {
             if (!payload.message.value) return;
 
             switch (payload.topic) {
-                case  'moodle-category': await CategoryConsumer.sync(KafkaMessage.toJSON(payload.message.value)); break;
-                case    'moodle-course': await CourseConsumer.sync(KafkaMessage.toJSON(payload.message.value)); break;
-                case   'moodle-student': await StudentConsumer.sync(KafkaMessage.toJSON(payload.message.value)); break;
-                case 'moodle-classwork': await ClassworkConsumer.sync(KafkaMessage.toJSON(payload.message.value)); break;
+                case  'moodle-category': await new CategoryConsumer().sync(KafkaMessage.toJSON(payload.message.value)); break;
+                case    'moodle-course': await new CourseConsumer().sync(KafkaMessage.toJSON(payload.message.value)); break;
+                case   'moodle-student': await new StudentConsumer().sync(KafkaMessage.toJSON(payload.message.value)); break;
+                case 'moodle-classwork': await new ClassworkConsumer().sync(KafkaMessage.toJSON(payload.message.value)); break;
             }
         } catch (error) {
             console.error(error);

@@ -20,7 +20,7 @@ export class Authorize {
             const credentials = fs.readFileSync(this._credentialsPath, { encoding: 'utf8', flag: 'r' }) as any;
             const { endpoint_url, token } = JSON.parse(credentials);
 
-            return await Moodle.init({ wwwroot: endpoint_url, token: token }) as MoodleClient;
+            return await Moodle.init({ wwwroot: endpoint_url, token: token, service: 'api_moodle_tcc' }) as MoodleClient;
         } catch (err) {
             console.error(`Unable to initialize the client:`, err);
         }

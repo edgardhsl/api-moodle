@@ -11,6 +11,7 @@ export class Moodle {
     private static _moodle: MoodleClient | undefined;
 
     constructor() {
+        console.log(this.constructor.name, Moodle._moodle);
         if (Moodle._moodle) {
             this.course = new CourseAPI(Moodle._moodle);
             this.user = new UserAPI(Moodle._moodle);
@@ -19,7 +20,8 @@ export class Moodle {
 
     static async init(auth?: Authorize) {
         if (auth !== undefined) {
-            this._moodle = await auth.auth();
+            Moodle._moodle = await auth.auth();
+            console.log("Instância do cliente Moodle inicializado!");
         }
     }
 }
