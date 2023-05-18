@@ -72,6 +72,17 @@ npm install
 }
 ```
 
+4. Configure os dados dos brokers do Apache Kafka no arquivo: `src/app/config/kafka_brokers.json`
+
+```JS
+[
+    {
+        "host": "127.0.0.1",
+        "port": "9092"
+    }
+]
+```
+
 ## Uso da aplicação
 
 Você pode executar o projeto com o comando abaixo:
