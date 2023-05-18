@@ -5,8 +5,7 @@ export class StudentConsumer {
     private static _moodle: Moodle = new Moodle();
 
     static async sync(data: Array<any>) {
-        const response = await this._moodle.user.create(this._castToMoodle(data));
-
+        const response = await StudentConsumer._moodle.user.create(this._castToMoodle(data));
     }
 
     private static _castToMoodle(data: any[]): Array<IUser> {
